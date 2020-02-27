@@ -7,7 +7,7 @@ from wemake_python_styleguide.violations.best_practices import (
     ExecutableMismatchViolation
 )
 from wemake_python_styleguide.visitors.tokenize.comments import (
-    FileMagicCommentsVisitor
+    ShebangVisitor
 )
 
 _python_files_folder = Path(__file__).absolute().parent / 'test_valid_shebang_resources'
@@ -29,7 +29,7 @@ def test_exe_negative(
     with open(filename) as f:
         contents = f.read()
         file_tokens = parse_tokens(contents)
-        visitor = FileMagicCommentsVisitor(default_options, filename=filename, file_tokens=file_tokens)
+        visitor = ShebangVisitor(default_options, filename=filename, file_tokens=file_tokens)
         visitor.run()
         assert_errors(visitor,[])
 
@@ -51,6 +51,6 @@ def test_exe_positive(
     with open(filename) as f:
         contents = f.read()
         file_tokens = parse_tokens(contents)
-        visitor = FileMagicCommentsVisitor(default_options, filename=filename, file_tokens=file_tokens)
+        visitor = ShebangVisitor(default_options, filename=filename, file_tokens=file_tokens)
         visitor.run()
         assert_errors(visitor, [ExecutableMismatchViolation])
