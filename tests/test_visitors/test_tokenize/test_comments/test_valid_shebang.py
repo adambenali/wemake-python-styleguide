@@ -28,7 +28,7 @@ def test_exe_negative(
 ):
     """Testing cases when no errors should be reported."""
     filename = _python_files_folder / ''.join([error_code, '_neg.py'])
-    with open(filename, 'utf-8') as test_file:
+    with open(filename, 'r', encoding='utf-8') as test_file:
         file_content = test_file.read()
         file_tokens = parse_tokens(file_content)
         visitor = ShebangVisitor(
@@ -55,7 +55,7 @@ def test_exe_positive(
 ):
     """Testing cases when errors should be reported."""
     filename = _python_files_folder / ''.join([error_code, '_pos.py'])
-    with open(filename, 'utf-8') as test_file:
+    with open(filename, 'r', encoding='utf-8') as test_file:
         file_content = test_file.read()
         file_tokens = parse_tokens(file_content)
         visitor = ShebangVisitor(
